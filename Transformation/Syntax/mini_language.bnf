@@ -1,0 +1,43 @@
+USE_LR_PARSER
+
+prog
+
+(* ======================================================================================================= *)
+<prog>                   ::= <statement_list>                                                                 .
+<statement_list>         ::= <statement> <statement_list> | <epsilon>                                         .
+<statement>              ::= <declaration> ";" | <assignment> ";" | <increment> ";"
+                            | <conditional> | <loop> | <block> | <print_statement> ";"                        .
+<declaration>            ::= "int" id | "boolean" id                                                          .
+<assignment>             ::= id "=" <expr>                                                                    .
+<increment>              ::= <pre_increment> | <post_increment> | <pre_decrement>
+                            | <post_decrement>                                                                .
+<pre_increment>          ::= "++"id                                                                           .
+<post_increment>         ::= id"++"                                                                           .
+<pre_decrement>          ::= "--"id                                                                           .
+<post_decrement>         ::= id"--"                                                                           .
+<conditional>            ::= <if_statement> | <if_else_statement>                                             .
+<if_statement>           ::= "if" "(" <expr> ")" <block>                                                      .
+<if_else_statement>      ::= "if" "(" <expr> ")" <block> "else" <block>                                       .
+<loop>                   ::= <while_loop> | <for_loop>                                                        .
+<while_loop>             ::= "while" "(" <expr> ")" <block>                                                   .
+<for_loop>               ::= "for" "(" <assignment> ";" <expr> ";" <increment> ")" <block>                    .
+<block>                  ::= "{" <statement_list> "}"                                                         .
+<print_statement>        ::= "print" "(" <expr> ")"                                                           .
+<expr>                   ::= <or_expr>                                                                        .
+<or_expr>                ::= <and_expr> | <or_expr> "||" <and_expr>                                           .
+<and_expr>               ::= <equality_expr> | <and_expr> "&&" <equality_expr>                                .
+<equality_expr>          ::= <relational_expr> | <equality_expr> "==" <relational_expr> 
+                            | <equality_expr> "!=" <relational_expr>                                          .
+<relational_expr>        ::= <additive_expr> | <relational_expr> ">" <additive_expr>
+                            | <relational_expr> "<" <additive_expr>                                           .
+<additive_expr>          ::= <multiplicative_expr> | <additive_expr> "+" <multiplicative_expr>
+                            | <additive_expr> "-" <multiplicative_expr>                                       .
+<multiplicative_expr>    ::= <unary_expr> | <multiplicative_expr> "*" <unary_expr>
+                            | <unary_expr> "/" <multiplicative_expr> | <multiplicative_expr> "%" <unary_expr> .
+<unary_expr>             ::= <exponential_expr> | "-" <unary_expr> | "!" <unary_expr>                         .
+<exponential_expr>       ::= <base> | <base> "^" <exponential_expr>                                           .
+<base>                   ::= <decorated_id> | <value> | id | "(" <expr> ")" | "abs" "(" <expr> ")"            .
+<value>                  ::= integer | boolean                                                                .
+<decorated_id>           ::= id"++" | id"--" | "++"id | "--"id                                                .
+(* ======================================================================================================= *)
+<epsilon>            ::=                                                                                      .
